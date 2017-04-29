@@ -7,7 +7,8 @@ data is labeled so that we could measure the classifier accuracy.
 from typing import Tuple
 import random
 import itertools
-from functools import reduce
+
+import click
 
 import fs
 
@@ -26,9 +27,14 @@ class LinearFunction:
         return x * self.a + self.b
 
 
-def main() -> None:
-    random_data = make_n_vectors(10, LinearFunction(1, 0))
-    fs.write_json_to('vectors.json', random_data, pretty=True)
+@click.command()
+@click.option('--samples', default=1000,
+              help='Number of generated data samples.')
+@click.option('--output', default='vectors.json',
+              help='File to write json data to.')
+def main(samples: int, output: str) -> None:
+    random_data = make_n_vectors(samples, LinearFunction(1, 0))
+    fs.write_json_to(output, random_data, pretty=True)
 
 
 def make_n_vectors(n: int, classification_fn: LinearFunction) -> list:
