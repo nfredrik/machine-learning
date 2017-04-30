@@ -21,6 +21,25 @@ cluster::
                  |  x
      ------------+------------->
 
+Data
+====
+
+There's a script to generate random data::
+
+    $ pyenv/bin/python3 src/generate_data.py --help
+    Usage: generate_data.py [OPTIONS]
+
+    Options:
+      --samples INTEGER  Number of generated data samples.
+      --output TEXT      File to write json data to.
+      --help             Show this message and exit.
+
+For example to generate 10000 samples and save the data to out.json use
+this command::
+
+    $ pyenv/bin/python3 src/generate_data.py --samples 10000 --output vectors.json
+
+
 .. rubric:: References
 
 .. [#f1] http://scikit-learn.org/stable/tutorial/statistical_inference/unsupervised_learning.html
