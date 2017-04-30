@@ -13,18 +13,25 @@ import click
 import fs
 
 
-Point = Tuple[float, float]
+class PointGenerator:
+    def __call__(self) -> Tuple[float, float, int]:
+        """
+        Returns:
+            (x, y, class): random point with label.
+        """
+        raise Exception('Not implemented')
 
 
-class LinearFunction:
-    """a*x + b"""
-
-    def __init__(self, a: float, b: float) -> None:
-        self.a = a
-        self.b = b
-
-    def __call__(self, x: int) -> float:
-        return x * self.a + self.b
+class PointsSplitByYAxis:
+    def __call__(self) -> Tuple[float, float, int]:
+        cls = random.randint(0, 1)
+        if cls == 0:
+            x_bounds = (-20, -2)
+        else:
+            x_bounds = (2, 20)
+        x = random.uniform(*x_bounds)
+        y = random.uniform(0, 20)
+        return (x, y, cls)
 
 
 @click.command()
@@ -33,39 +40,19 @@ class LinearFunction:
 @click.option('--output', default='vectors.json',
               help='File to write json data to.')
 def main(samples: int, output: str) -> None:
-    random_data = make_n_vectors(samples, LinearFunction(1, 0))
+    random_data = make_n_vectors(samples, PointsSplitByYAxis())
     fs.write_json_to(output, random_data, pretty=True)
 
 
-def make_n_vectors(n: int, classification_fn: LinearFunction) -> list:
+def make_n_vectors(n: int, point_generator: PointGenerator) -> list:
     return [item for item in
-            itertools.islice(gen_linear_data(classification_fn), n)]
+            itertools.islice(generate_data(point_generator), n)]
 
 
-def gen_linear_data(classification_fn: LinearFunction) -> dict:
+def generate_data(point_generator) -> dict:
     while True:
-        x, y = random_point()
-        point_class = classify_point((x, y), classification_fn)
+        x, y, point_class = point_generator()
         yield {'x': x, 'y': y, 'class': point_class}
-
-
-def classify_point(point: Point, classification_fn: LinearFunction) -> int:
-    """Simple point classification using a linear funcion.
-
-    Linear function divides points into two classes.
-
-    Returns:
-        Class of a point: either 1 or 2.
-    """
-    x = point[0]
-    y = point[1]
-    if y > classification_fn(x):
-        return 1
-    return 2
-
-
-def random_point() -> Point:
-    return (random.uniform(-20, 20), random.uniform(0, 20))
 
 
 if __name__ == '__main__':
