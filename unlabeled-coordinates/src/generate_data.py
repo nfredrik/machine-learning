@@ -45,8 +45,7 @@ def main(samples: int, output: str) -> None:
 
 
 def make_n_vectors(n: int, point_generator: PointGenerator) -> list:
-    return [item for item in
-            itertools.islice(generate_data(point_generator), n)]
+    return list(itertools.islice(generate_data(point_generator), n))
 
 
 def generate_data(point_generator) -> dict:
