@@ -21,6 +21,7 @@ def generate_image_from(coords: list, img_path: str) -> None:
     for c in coords:
         ax.plot(c['x'], c['y'], 'o')
     plt.savefig(img_path)
+    plt.gcf().clear()
 
 
 if __name__ == '__main__':
