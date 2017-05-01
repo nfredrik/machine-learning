@@ -43,3 +43,5 @@ this command::
 .. rubric:: References
 
 .. [#f1] http://scikit-learn.org/stable/tutorial/statistical_inference/unsupervised_learning.html
+.. [#f2] https://www.youtube.com/watch?v=7Qv0cmJ6FsI
+.. [#f3] http://bigdata-madesimple.com/possibly-the-simplest-way-to-explain-k-means-algorithm/
