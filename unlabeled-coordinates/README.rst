@@ -21,6 +21,8 @@ cluster::
                  |  x
      ------------+------------->
 
+K-Means clustering algorithm was used [#f3]_.
+
 Data
 ====
 
@@ -38,6 +40,10 @@ For example to generate 10000 samples and save the data to out.json use
 this command::
 
     $ pyenv/bin/python3 src/generate_data.py --samples 10000 --output vectors.json
+
+Currently it generates two clusters split by Y axis. But in theory any kind
+of generators could be implemented that generate more clusters and with
+different functions.
 
 Visualization
 -------------
@@ -61,6 +67,29 @@ Data generated with `PointsSplitByYAxis` generator looks like this:
 
 .. image:: img/vectors.png
 
+Samples
+=======
+
+See `src/main.py` how K-Means clustering is used.
+
+Run the samples::
+
+    $ make pyenv # create python virtual environment with dependencies
+    $ pyenv/bin/python3 src/gen_data.py # generate some sample data
+    $ pyenv/bin/python3 src/main.py # classify the data
+
+Development
+===========
+
+There are some utilities to ensure code quality and correctness.
+
+Run tests::
+
+    $ make test
+
+Validate PEP8 formatting::
+
+    $ make lint
 
 .. rubric:: References
 
