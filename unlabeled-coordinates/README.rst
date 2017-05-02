@@ -39,6 +39,28 @@ this command::
 
     $ pyenv/bin/python3 src/generate_data.py --samples 10000 --output vectors.json
 
+Visualization
+-------------
+
+There's another script to visualize data::
+
+    $ pyenv/bin/python3 src/plot_data.py --help
+    Usage: plot_data.py [OPTIONS]
+
+    Options:
+      --in TEXT   Input data file path.
+      --out TEXT  Output image file.
+      --help      Show this message and exit.
+
+For example to save a visualized `vectors.json` file to svg image use this
+command::
+
+    $ pyenv/bin/python3 src/plot_data.py --in vectors.json --out data.svg
+
+Data generated with `PointsSplitByYAxis` generator looks like this:
+
+.. image:: img/vectors.png
+
 
 .. rubric:: References
 
